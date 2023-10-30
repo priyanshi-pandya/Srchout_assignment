@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:srchout_assignment/widgets/bottom_nav_bar.dart';
 import 'package:srchout_assignment/widgets/popular_items_container.dart';
 import 'package:srchout_assignment/widgets/recently_viewed_container.dart';
 
@@ -21,11 +20,12 @@ class _DashboardPageState extends State<DashboardPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Padding(
+              const Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 12.0, vertical: 31),
-                child: const Row(
+                   EdgeInsets.symmetric(horizontal: 12.0, vertical: 31),
+                child: Row(
                   children: [
+                    
                     CircleAvatar(
                       backgroundImage: AssetImage('assets/images/profile.png'),
                     ),
@@ -169,7 +169,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       width: 13,
                     ),
                     PopularItemsContainer(
-                      image: 'assets/images/rebel.png',
+                      image: 'assets/images/rebel.jpg',
                       name: "Rebel 1100",
                       type: "Honda",
                       rent: 1199,

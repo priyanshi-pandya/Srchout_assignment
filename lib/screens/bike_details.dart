@@ -219,14 +219,14 @@ class _BikeDetailsPageState extends State<BikeDetailsPage> {
                 SingleChildScrollView(
                   primary: false,
                   scrollDirection: Axis.vertical,
-                  padding: EdgeInsets.only(right: 20),
+                  padding: const EdgeInsets.only(right: 20),
                   child: Column(
                     children: [
                       RecentlyViewedContainer(
                         image: 'assets/images/riding_jacket.png',
                         name: 'Riding Jacket',
                         rent: jacket,
-                        buttonValue: 1,
+                        buttonValue: 0,
                       ),
                       const SizedBox(
                         height: 15,
@@ -244,7 +244,7 @@ class _BikeDetailsPageState extends State<BikeDetailsPage> {
                         image: 'assets/images/helmet.png',
                         name: 'Helmet',
                         rent: helmet,
-                        buttonValue: 1,
+                        buttonValue: 0,
                       ),
                     ],
                   ),

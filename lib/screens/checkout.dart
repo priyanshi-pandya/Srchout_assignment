@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:srchout_assignment/utils/constants/constants.dart';
 import 'dart:math';
 
@@ -15,16 +16,25 @@ class _CheckoutPageState extends State<CheckoutPage> {
   DateTime startDate = DateTime.now();
   var endDate = DateTime.now();
   int discount = 0;
+  int totalRent = 0;
+  int daysDifference = 0;
   TextEditingController coupanController = TextEditingController();
+  Future<SharedPreferences> _pref = SharedPreferences.getInstance();
 
   Future<void> _selectDate(
       BuildContext context, dateSelected, bool isStart) async {
     final DateTime? picked = await showDatePicker(
         context: context,
-        initialDate: dateSelected,
-        firstDate: DateTime(2023),
+        initialDate: startDate,
+        firstDate: DateTime.now(),
         lastDate: DateTime(2101));
     if (picked != null && picked != dateSelected) {
+      await _pref.then(
+        (value) {
+          totalRent = value.getInt("Total_Rent") ?? 0;
+          totalRent = totalRent * daysDifference;
+        },
+      );
       setState(() {
         if (isStart) {
           startDate = picked;
@@ -44,7 +54,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
   @override
   Widget build(BuildContext context) {
-    int daysDifference = endDate.difference(startDate).inDays + 1;
+    daysDifference = endDate.difference(startDate).inDays + 1;
 
     return Scaffold(
       body: SafeArea(
@@ -276,7 +286,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         ),
                         const Spacer(),
                         Text(
-                          '₹1600',
+                          '₹$totalRent',
                           style: Constants.textStyle,
                         ),
                       ],
@@ -319,7 +329,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ),
                     const Spacer(),
                     Text(
-                      "₹${1499 * daysDifference + discount}",
+                      "₹${1499 * daysDifference + discount + totalRent}",
                       style: const TextStyle(
                         color: Colors.black,
                         fontFamily: 'Roboto',
@@ -333,7 +343,28 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   height: 60,
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text(
+                            "Success",
+                            textAlign: TextAlign.center,
+                          ),
+                          content: Image.asset('assets/images/success.jpg'),
+                          actions: [
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text("Close"),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(
                       const EdgeInsets.symmetric(vertical: 15),

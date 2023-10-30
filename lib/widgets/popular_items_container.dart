@@ -38,7 +38,7 @@ class PopularItemsContainer extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
               clipBehavior: Clip.hardEdge,
-              child: Image.asset(image, height: 158),
+              child: Image.asset(image, height: 158, width: 150,),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -72,8 +72,8 @@ class PopularItemsContainer extends StatelessWidget {
                             fontFamily: 'Risque',
                             fontSize: 18,
                             fontWeight: FontWeight.w400),
-                        children: [
-                          const TextSpan(
+                        children: const [
+                         TextSpan(
                             text: ' per day',
                             style: TextStyle(
                                 fontWeight: FontWeight.w300,
